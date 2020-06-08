@@ -1,0 +1,39 @@
+*{margin:0;padding:0;list-style: none;cursor: pointer;}
+a{text-decoration:none;color: darkgray; }
+#clickDemo{padding-left: 330px;padding-top: 130px;}
+header{width: 100%;height: 50px;background-color: lightgray;position: fixed;top: 0;z-index: 1;}
+header>span{float: right;width: 200px;line-height: 50px;text-align: center;color: darkgray;}
+.personal_choose{width: 206px;background-color: #1b4329;position: fixed;left:0;top: 0; height: 100%;z-index: 999;}
+.personal_choose ul li{width: 200px;color: white;font-size: 15px;line-height: 50px;height: 50px;text-align: center;border-left: 6px solid #1b4329;}
+.personal_choose li:hover{width: 200px;height: 50px;border-left: 6px solid green; background: darkgray}
+.split{border-bottom: 1px darkgray solid;}
+input[type="text"],input[type="password"],input[type="email"]{height: 30px;width: 250px;background-color: lightgray;border: 1px solid #C0C0C0;float: left}
+.show{display: block;}
+.personal_info{margin-top: 50px;margin-left: 206px;padding-left: 150px;padding-top: 50px;position: relative;}
+.change_password{margin-top: 50px;margin-left: 206px;padding-left: 150px;padding-top: 50px;position: relative;}
+.currently_logged{margin-top: 50px;margin-left: 206px;padding-left: 150px;padding-top: 50px;position: relative;}
+.change_info{margin-top: 50px;margin-left: 206px;padding-left: 150px;padding-top: 50px;position: relative;}
+.shop_car{margin-top: 50px;margin-left: 206px;padding-left: 150px;padding-top: 50px;position: relative;}
+table.gridtable {
+    font-size: 15px;
+    font-family: verdana,arial,sans-serif;
+    color:#333333;
+    border-width: 1px;
+    border-color: #666666;
+    border-collapse: collapse;
+}
+table.gridtable th {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #666666;
+    background-color: #dedede;
+}
+table.gridtable td {
+    border-width: 1px;
+    padding: 8px;
+    width: 200px;
+    height: 30px;
+    border-bottom: 1px solid darkgray;
+    background-color: #ffffff;
+}

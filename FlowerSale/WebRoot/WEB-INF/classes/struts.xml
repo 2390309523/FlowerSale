@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+ <!-- 设置全局的编码格式 -->
+    <constant name="struts.i18n.encoding" value="UTF-8"/>
+    <!-- 开启OGNL的静态访问 -->
+    <constant name="struts.ognl.allowStaticMethodAccess" value="true" />
+    <!-- 当struts的配置文件修改后,系统是否自动重新加载该文件,默认值为false(生产环境下使用),开发阶段最好打开--> 
+    <constant name="struts.configuration.xml.reload" value="true" /> 
+    <!-- 开发模式下使用,这样可以打印出更详细的错误信息 --> 
+    <constant name="struts.devMode" value="true" />  
+    
+    <!-- 登录 -->
+    <package name="default" namespace="/" extends="struts-default">
+	    <interceptors>
+	    <!-- 创建一个判断用户是否登录 的拦截器 ，没有登录返回Globle-Result,但是其他的action里面最好别有”unLogin“的返回值-->
+	    	<interceptor name="loginInterceptor" class="flower.com.action.intercepter.UnLoginIntercepter"></interceptor>
+	    	<interceptor name="loginAndUserIntercepter" class="flower.com.action.intercepter.LoginAndUserIntercepter"></interceptor>
+	    	<interceptor name="loginAndAdministratorIntercepter" class="flower.com.action.intercepter.LoginAndAdministratorIntercepter"></interceptor>
+	    	<interceptor-stack name="loginInterceptor">
+	    		<interceptor-ref name="loginInterceptor"></interceptor-ref>
+	    		<interceptor-ref name="defaultStack"></interceptor-ref>
+	    	</interceptor-stack>
+	    	<!-- 将普通用户拦截 -->
+	    	<interceptor-stack name="loginAndUserIntercepter">
+	    		<interceptor-ref name="loginAndUserIntercepter"></interceptor-ref>
+	    		<interceptor-ref name="defaultStack"></interceptor-ref>
+	    	</interceptor-stack>
+	    	<!-- 将管理员拦截 -->
+	    	<interceptor-stack name="loginAndUserIntercepter">
+	    		<interceptor-ref name="loginAndAdministratorIntercepter"></interceptor-ref>
+	    		<interceptor-ref name="defaultStack"></interceptor-ref>
+	    	</interceptor-stack>
+	    </interceptors>
+    	<!-- 没有登录，后面拦截器的时候作用 -->
+    	<global-results>
+    		<result name="unLogin" type="chain">welcome</result>
+    	</global-results>
+    	<!-- welcomeAction -->
+    	<action name="welcome" class="welcome" method="welcome">
+    		<result name="success">/UiFile/UiPage/welcome.jsp</result>
+    	</action>
+    	<!-- flowerInfoAction -->
+    	<action name="flowerInfo" class="flowerInfo" method="flowerInfo">
+    		<result name="success">/UiFile/UiPage/flowerShowInfo.jsp</result>
+    	</action>
+    	<!-- flowerInfoDetailed -->
+    	<action name="flowerInfoDetailed" class="flowerInfoDetailed" method="flowerInfoDetailed">
+    		<result name="success">/UiFile/UiPage/flowerInfoDetailed.jsp</result>
+    	</action>
+    	<!-- toLogin -->
+    	<action name="toLogin" class="toLogin" method="execute">
+    		<result name="success">/UiFile/UiPage/login.jsp</result>
+    	</action>
+    	<!-- toRegister -->
+    	<action name="toRegister" class="toRegister" method="execute">
+    		<result name="success">/UiFile/UiPage/register.jsp</result>
+    	</action>
+    	<!-- outLogin -->
+    	<action name="outLogin" class="outLogin" method="execute">
+    		<result name="success" type="chain">welcome</result>
+    		<interceptor-ref name="loginInterceptor"></interceptor-ref>
+    	</action>
+    	<!-- register -->
+    	<action name="register" class="register" method="register">
+    		<result name="success">/UiFile/UiPage/login.jsp</result>
+    		<result name="default">/UiFile/UiPage/register.jsp</result>
+    	</action>
+    	<!-- login -->
+    	<action name="login" class="login" method="login">
+    		<result name="default">/UiFile/UiPage/login.jsp</result>
+    		<result name="success" type="chain">welcome</result>
+    	</action>
+    	<!-- fuzzySearch -->
+    	<action name="fuzzySearch" class="fuzzySearch" method="fuzzySearch">
+    		<result name="success">/UiFile/UiPage/welcome.jsp</result>
+    		<result name="default" type="chain">welcome</result>
+    	</action>
+    	<!-- findBackPasswordStepOne -->
+    	<action name="findBackPasswordStepOne" class="findBackPasswordStepOne" method="execute">
+    		<result name="success">/UiFile/UiPage/findBackPasswordStepTow.jsp</result>
+    		<result name="default">/UiFile/UiPage/findBackPasswordStepOne.jsp</result>
+    	</action>
+    	<!-- findBackPasswordStepTow -->
+    	<action name="findBackPasswordStepTow" class="findBackPasswordStepTow" method="execute">
+    		<result name="success">/UiFile/UiPage/findBackPasswordStepThree.jsp</result>
+    		<result name="default">/UiFile/UiPage/findBackPasswordStepTow.jsp</result>
+    	</action>
+    	<!-- addToShopCar -->
+    	<action name="addToShopCar" class="addToShopCar" method="addToShopCar">
+    		<result name="success" type="chain">flowerInfo</result>
+    	</action>
+    	<!-- addToOrder -->
+    	<action name="addToOrder" class="addToOrder" method="addToOrder">
+    		<result name="success" type="chain">flowerInfo</result>
+    		
+    	</action>
+    	<!-- personalPage -->
+    	<action name="personalPage" class="personalPage" method="execute">
+    		<result name="simple_user">/UiFile/UiPage/simpleUserPersonalPage.jsp</result>
+    		<result name="administrator">/UiFile/UiPage/administratorPersonalPage.jsp</result>
+    		<interceptor-ref name="loginInterceptor"></interceptor-ref>
+    	</action>
+    	<!-- changePassword -->
+    	<action name="changePassword" class="changePassword" method="changePassword">
+    		<result name="success" type="chain">outLogin</result>
+    		<result name="administratorDefault">/UiFile/UiPage/administratorPersonalPage.jsp</result>
+    		<result name="simpleUserDafault">/index.jsp</result>
+    		<interceptor-ref name="loginInterceptor"></interceptor-ref>
+    	</action>
+    	<!-- flowerNextPage -->
+    	<action name="flowerNextPage" class="flowerNextPaging" method="flowerNextPage">
+    		<result name="success">/UiFile/UiPage/welcome.jsp</result>
+    	</action>
+    	<!-- flowerPrevPage -->
+    	<action name="flowerPrevPage" class="flowerPrevPaging" method="flowerPrevPaging">
+    		<result name="success">/UiFile/UiPage/welcome.jsp</result>
+    	</action>
+    	<!-- changeUserInfo -->
+    	<action name="changeUserInfo" class="changeUserInfo" method="updataUserInfo">
+    		<result name="success" type="chain">personalPage</result>
+    		<interceptor-ref name="loginInterceptor"></interceptor-ref>
+    	</action>
+    	<!-- addFlower -->
+    	<action name="addFlower" class="addFlower" method="addFlower">
+    		<result name="success">/UiFile/UiPage/administratorPersonalPage.jsp</result>
+    		<interceptor-ref name="loginAndUserIntercepter"></interceptor-ref>
+    	</action>
+    	<!-- orderManager -->
+    	<action name="orderManager" class="orderManager" method="execute">
+    		<result name="success">/UiFile/UiPage/administratorOrderManage.jsp</result>
+    		<interceptor-ref name="loginAndUserIntercepter"></interceptor-ref>
+    	</action>
+    	<!-- orderFlowerMainInfo -->
+    	<action name="orderFlowerMainInfo" class="orderFlowerMainInfo">
+    		<result name="success">/UiFile/UiPage/flowerShowInfo.jsp</result>
+    		<interceptor-ref name="loginAndUserIntercepter"></interceptor-ref>
+    	</action>
+    	<!-- myStore -->
+    	<action name="myStore" class="myStore" method="execute">
+    		<result name="success">/UiFile/UiPage/welcome.jsp</result>
+    		<interceptor-ref name="loginInterceptor"></interceptor-ref>
+    	</action>
+    	<!-- toUpdataFlower -->
+    	<action name="toUpdataFlower" class="toUpdataFlower" method="toUpdataFlower">
+    		<result name="success">/UiFile/UiPage/administratorPersonalPage.jsp</result>
+    		<interceptor-ref name="loginAndUserIntercepter"></interceptor-ref>
+    	</action>
+    	<action name="updataFlowerInfo" class="updataFlowerInfo" method="updataFlowerInfo">
+    		<result name="success">/UiFile/UiPage/administratorPersonalPage.jsp</result>
+    		<interceptor-ref name="loginAndUserIntercepter"></interceptor-ref>
+    	</action>
+    	<!-- updataStoreInfo -->
+    	<action name="updataStoreInfo" class="updataStoreInfo"  method="updataStoreInfo">
+    		<result name="success">/UiFile/UiPage/administratorPersonalPage.jsp</result>
+    		<interceptor-ref name="loginAndUserIntercepter"></interceptor-ref>
+    	</action>
+    	<!-- changeSimpleUserInfo -->
+    	<action name="changeSimpleUserInfo" class="changeSimpleUserInfo" method="changeSimpleUserInfo">
+    		<result name="success" type="chain">personalPage</result>
+    		<!-- <interceptor-ref name="loginAndAdministratorIntercepter"></interceptor-ref> -->
+    	</action>
+    	<!-- selectOrderType -->
+    	<action name="selectOrderType" class="selectOrderType" method="selectOrderType">
+    		<result name="success">/UiFile/UiPage/administratorOrderManage.jsp</result>
+    		<result name="default" type="chain">orderManager</result>
+    		<interceptor-ref name="loginInterceptor"></interceptor-ref>
+    	</action>
+    	<!-- deleteOrder -->
+    	<action name="deleteOrder" class="deleteOrder" method="deleteOrder">
+    		<result name="success" type="chain">orderManager</result>
+    		<!-- <interceptor-ref name="loginAndAdministratorIntercepter"></interceptor-ref> -->
+    	</action>
+    	<!-- orderForSale -->
+    	<action name="orderForSale" class="orderForSale" method="orderForSale">
+    		<result name="success" type="chain">orderManager</result>
+    		<!-- <interceptor-ref name="loginAndAdministratorIntercepter"></interceptor-ref> -->
+    	</action>
+    	<!-- toShoppingCar -->
+    	<action name="toShoppingCar" class="toShoppingCar" method="toShoppingCar">
+    		<result name="success">/UiFile/UiPage/shopCar.jsp</result>
+    	</action>
+    	<!-- deleteSimpleShopCar -->
+    	<action name="deleteSimpleShopCar" class="deleteSimpleShopCar" method="deleteSimpleShopCar">
+    		<result name="success" type="chain">toShoppingCar</result>
+    	</action>
+    	<!-- shopCarDeleteSelect -->
+    	<action name="shopCarDeleteSelect" method="shopCarDeleteSelect" class="shopCarDeleteSelect">
+    		<result name="success" type="chain">toShoppingCar</result>
+    	</action>
+    	<action name="shopCarForPrice" class="shopCarForPrice" method="shopCarForPrice">
+    		<result name="success" type="chain">toShoppingCar</result>
+    	</action>
+    	<!-- myAddress -->
+    	<action name="myAddress" class="myAddress" method="myAddress">
+    		<result name="success">/UiFile/SimpleUserFrame/addressResive.jsp</result>
+    	</action>
+    	<!-- deleteAddress -->
+    	<action name="deleteAddress" class="deleteAddress" method="deleteAddress"></action>
+    	<!-- setAsDefault -->
+    	<action name="setAsDefault" class="setAsDefault" method="setAsDefault"></action>
+    	<!-- addAddress -->
+    	<action name="addAddress" class="addAddress" method="addAddress">
+    		<result name="success" type="chain">myAddress</result>
+    	</action>
+    	<!-- updataAddress -->
+    	<action name="updataAddress" class="updataAddress" method="updataAddress">
+    		<result name="success" type="chain">myAddress</result>
+    	</action>
+		<!-- findStoreIsExist -->
+		<action name="findStoreIsExist" method="findStoreIsExist" class="findStoreIsExist"></action>
+    	<!-- userToOrderManager -->
+    	<action name="userToOrderManager" method="userToOrderManager" class="userToOrderManager">
+    		<result name="success">/UiFile/GlobleFrame/orderManagerFrame.jsp</result>
+    	</action>
+    	<!-- userDeleteOrder -->
+    	<action name="userDeleteOrder" class="userDeleteOrder" method="userDeleteOrder">
+    		<result name="success" type="chain">userToOrderManager</result>
+    	</action>
+    	<!-- userSelectType -->
+    	<action name="userSelectType" method="userSelectType" class="userSelectType">
+    		<result name="success">/UiFile/GlobleFrame/orderManagerFrame.jsp</result>
+    		<result name="default" type="chain">userToOrderManager</result>
+    	</action>
+    	<action name="checkUsername" class="checkUsername" method="checkUsername"></action>
+    	<action name="checkEmail" class="checkEmail" method="checkEmail"></action>
+    	<action name="getDefaultAddress" method="getDefaultAddress" class="getDefaultAddress"></action>
+    	<!-- applayStore -->
+    	<action name="applayStore" class="applayStore">
+    		<result name="yes" type="chain">welcome</result>
+    		<result name="no" type="chain">personalPage</result>
+    	</action>
+    	<!-- getStoreAndFlowerName -->
+    	<action name="getStoreAndFlowerName" class="getStoreAndFlowerName" method="getStoreAndFlowerName"></action>
+    </package>
+</struts>

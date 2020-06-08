@@ -1,0 +1,110 @@
+*{margin:0;padding: 0;text-decoration: none;}
+html,body{ width: 100%;height:100%;background: #8de6ff;}
+#login{
+    width: 683px;
+    height: 463px;
+    background: lightgoldenrodyellow;
+    position: fixed;
+    margin: auto;
+    border-radius: 50px;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    padding: 30px;
+}
+.left{
+    height: 100%;
+    width: 30%;
+    float: left;
+
+}
+.lineCenter{
+    margin: auto;
+    margin-top: 50%;
+    margin-bottom: 50%;
+}
+
+.right{
+    height: 100%;
+    width: 70%;
+    float: left;
+    text-shadow: 3px;
+}
+.right>.login_info{
+    height: 50px;
+    width: 100%;
+    line-height: 50px;
+    text-align: center;
+    font-size: 30px;
+}
+.right>.login_box{
+    height:150px;
+    width: 100%;
+    line-height: 50px;
+    text-align: center;
+    font-size: 30px;
+}
+.login_box form table{
+    height: 100px;
+    width: 100%;
+}
+.login_box form table tr{
+    height: 70px;
+    width: 100%;
+}
+.login_box form table td:nth-child(1){
+    width: 30%;
+}
+.login_box form table td:nth-child(2){
+    width: 70%;
+}
+.login_box input[type="password"],input[type="text"],input[type="submit"]{
+    height: 40px;
+    width: 100%;
+    background: none;
+    border-radius: 15px;
+
+}
+.login_box input:hover{
+   background: #e7efc2;
+
+}
+.login_box input:hover{
+    box-shadow: aqua 3px;
+    border-radius: 15px;
+}
+.login_href{
+   margin-top: 150px;
+}
+.login_href span{
+   display: block;
+    width: 50%;
+    float: left;
+}
+.left{
+    float: left;
+
+}
+.right{
+    float: right;
+}
+}
+.Rigister_main{
+    width: 600px;
+    height: 400px;
+    padding: 30px;
+    border-radius: 50px;
+    background-color: #f4f3c2;
+    margin: 0px auto;
+    margin-top: 100px;
+}
+.login_box table>tr:nth-child(3) a,td{
+	font-size:25px;
+	float: left;
+}
+.login_box input[type="radio"]{
+	margin-left:25px;
+	height: 20px;
+	width: 20px;
+}

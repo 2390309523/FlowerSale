@@ -1,0 +1,81 @@
+*{margin: 0;padding: 0;list-style: none;text-decoration: none}
+header{
+    width: 100%;
+    height: 70px;
+    background: rgba(255,255,255,0);
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 70px;
+    position: fixed;
+}
+header>li{
+    margin-left: 30px;
+    float: left;
+    width: 100px;
+    text-align:center;
+    line-height: 70px;
+}
+header>li>a{
+   color: black;
+}
+header>ul{
+    margin-right: 50px;
+    float: right;
+}
+header ul>li{
+    position: relative;
+    float: left;
+    width: 100px;
+    height: 70px;
+    margin-left: 20px;
+    line-height: 70px;
+    text-align: center;
+}
+header ul>li:hover{
+    float: left;
+    width: 100px;
+    text-align:center;
+    line-height: 70px;
+    border-radius: 15px;
+    background-color: linen;
+    text-shadow: red;
+}
+header img{
+	height: 60px;
+	margin-top: 5px;
+	width: 60px;
+	border-radius: 60px;
+}
+header>ul>form{
+	float: left;
+	display: block;
+	height: 70px;
+	width: 350px;
+	line-height: 70px;
+}
+header>form span,input{
+	display: block;
+	float: left;
+}
+header>ul>form>input[type="text"]{
+	height: 40px;
+	margin-top:15px;
+	width: 200px;
+	background: none;
+}
+header>ul>form>input[type="submit"]{
+	height: 40px;
+	margin-top:15px;
+	width: 50px;
+	background-color: none;
+}
+header>ul>form>span{
+	height: 40px;
+	line-height:40px;
+	margin-top: 15px;
+	text-align:center;
+	width: 80px;
+	background-color: rgba(255,255,255,.5);
+	float: left;
+}
+

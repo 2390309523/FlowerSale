@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="FlowerSale"
+  id="myeclipse.1575095357530"
+  context-root="/FlowerSale"
+  j2ee-spec="6.0"
+  archive="FlowerSale.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

@@ -1,0 +1,16 @@
+*{margin:0;padding:0;text-align: center;}
+ #storeInfo{width: 100%;text-align: center;}
+ #storeInfo .header{font-size: 20px;font-weight: bold;}
+#storeInfo .info{width: 90%;}
+form{width: 90%}
+.item{border-bottom: 1px darkgray solid;text-align:center; box-shadow:0 0 3px 0 lightgray;margin-top:5px;padding:10px 20px;width: 100%}
+.item>div{display: inline;float: left}
+.first{width: 20%;height:100%;float:left;}
+.second{width: 35%;height:100%;line-height:25px !important;float:left;}
+.third{width: 45%;height:100%;float:left;}
+.third>input{height: 100%;width: 100%;}
+.simple-item{line-height: 100px !important;  height: 100px;overflow: hidden;text-align: justify;}
+.list-item{line-height: 30px !important;  height: 30px;overflow: hidden}
+.img_item{height: 150px;overflow: hidden;text-align: center}
+.img_item img{height: 150px;width: 150px;}
+.textarea{width: 100%;height: 100%;line-height: 18px !important;border-radius: 5px;font-size: 15px !important;}

@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+     xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd"
+        default-autowire="byName">
+        
+<!-- 对DAO层进行配置 -->
+      <!-- userDao -->  
+	<bean id="userDao" class="flower.com.dao.impl.UserDaoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	<!-- storeDao -->
+	<bean id="storeDao" class="flower.com.dao.impl.StoreDaoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	<!-- shopCarDao -->
+	<bean id="shopCarDao" class="flower.com.dao.impl.ShopCarDaoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	<!-- orderDao -->
+	<bean id="orderDao" class="flower.com.dao.impl.OrderDaoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	<!-- flowerFileDao -->
+	<bean id="flowerFileDao" class="flower.com.dao.impl.FlowerFileDaoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	<!-- flowerDao -->
+	<bean id="flowerDao" class="flower.com.dao.impl.FlowerDaoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	<!-- fileDao -->
+	<bean id="fileDao" class="flower.com.dao.impl.FileDaoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	<!-- addressDao -->
+	<bean id="addressDao" class="flower.com.dao.impl.AddressDaoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+<!-- 对BIZ层进行配置 -->
+	<!-- userBiz -->
+	<bean id="userBiz" class="flower.com.biz.impl.UserBizImpl">
+		<property name="userDao">
+			<ref bean="userDao"/>
+		</property>
+	</bean>
+	<!-- flowerBiz -->
+	<bean id="flowerBiz" class="flower.com.biz.impl.FlowerBizImpl">
+		<property name="flowerDao">
+			<ref bean="flowerDao"/>
+		</property>
+	</bean>
+	<!-- flowerFileBiz -->
+	<bean id="flowerFileBiz" class="flower.com.biz.impl.FlowerFileBizImpl">
+		<property name="flowerFileDao">
+			<ref bean="flowerFileDao"/>
+		</property>
+	</bean>
+	<!-- storeBiz -->
+	<bean id="storeBiz" class="flower.com.biz.impl.StoreBizImpl">
+		<property name="storeDao">
+			<ref bean="storeDao"/>
+		</property>
+	</bean>
+	<!-- orderBiz -->
+	<bean id="orderBiz" class="flower.com.biz.impl.OrderBizImpl">
+		<property name="orderDao">
+			<ref bean="orderDao"/>
+		</property>
+	</bean>
+	<!-- shoppCarBiz -->
+	<bean id="shopCarBiz" class="flower.com.biz.impl.ShopCarBizImpl">
+		<property name="shopCarDao">
+			<ref bean="shopCarDao"/>
+		</property>
+	</bean>
+	<!-- fileBiz -->
+	<bean id="fileBiz" class="flower.com.biz.impl.FileBizImpl">
+		<property name="fileDao">
+			<ref bean="fileDao"/>
+		</property>
+		
+	</bean>
+	<!-- addressBiz -->
+	<bean id="addressBiz" class="flower.com.biz.impl.AddressBizImpl">
+		<property name="addressDao">
+			<ref bean="addressDao"/>
+		</property>
+
+	</bean>
+	
+<!-- 对action进行配置 -->
+	<!-- welcomeAction -->
+	<bean id="welcome" class="flower.com.action.WelcomeAction">
+		<property name="flowerBiz">
+			<ref bean="flowerBiz"/>
+		</property>
+	</bean>
+	
+	<!-- flowerInfoAction -->
+	<bean id="flowerInfo" class="flower.com.action.FlowerInfoAction">
+		<property name="flowerBiz">
+			<ref bean="flowerBiz"/>
+		</property>
+		<property name="flowerFileBiz">
+			<ref bean="flowerFileBiz"/>
+		</property>
+	</bean>
+	
+	<!-- FlowerInfoDetailedAction -->
+	<bean id="flowerInfoDetailed" class="flower.com.action.FlowerInfoDetailedAction">
+		<property name="flowerBiz">
+			<ref bean="flowerBiz"/>
+		</property>
+	</bean>
+	
+	<!-- ToLoginAction -->
+	<bean id="toLogin" class="flower.com.action.ToLoginAction"></bean>
+	
+	<!-- ToRegisterAction -->
+	<bean id="toRegister" class="flower.com.action.ToRegisterAction"></bean>
+	
+	<!-- register -->
+	<bean id="register" class="flower.com.action.RegisterAction">
+		<property name="userBiz">
+			<ref bean="userBiz"/>
+		</property>
+	</bean>
+	
+	<!-- login -->
+	<bean id="login" class="flower.com.action.LoginAction">
+		<property name="storeBiz">
+			<ref bean="storeBiz"/>
+		</property>
+		<property name="userBiz">
+			<ref bean="userBiz"/>
+		</property>
+	</bean>
+	
+	<!-- outLogin -->
+	<bean id="outLogin" class="flower.com.action.LoginOutAction"></bean>
+	<!-- fuzzySearch -->
+	
+	<!-- fuzzySearch -->
+	<bean id="fuzzySearch" class="flower.com.action.FuzzySearchAction">
+		<property name="flowerBiz">
+			<ref bean="flowerBiz"/>
+		</property>
+	</bean>
+	<!-- findbackPasswordStepOne -->
+	<bean id="findBackPasswordStepOne" class="flower.com.action.FindBackPasswordStepOne">
+		<property name="userBiz">
+			<ref bean="userBiz"/>
+		</property>
+	</bean>
+	<!-- findbackpasswordStepTow -->
+	<bean id="findBackPasswordStepTow" class="flower.com.action.FindBackPasswordStepTow">
+		<property name="userBiz">
+			<ref bean="userBiz"/>
+		</property>
+	</bean>
+	<!-- addToShopCar -->
+	<bean id="addToShopCar" class="flower.com.action.AddToShopCarAction">
+		<property name="shopCarBiz">
+			<ref bean="shopCarBiz"/>
+		</property>
+		<property name="flowerBiz">
+			<ref bean="flowerBiz"/>
+		</property>
+	</bean>
+	<!-- addToOrderAction -->
+	<bean id="addToOrder" class="flower.com.action.AddToOrderAction">
+		<property name="flowerBiz">
+			<ref bean="flowerBiz"/>
+		</property>
+		<property name="orderBiz">
+			<ref bean="orderBiz"/>
+		</property>
+		<property name="addressBiz">
+			<ref bean="addressBiz"/>
+		</property>
+		<property name="storeBiz">
+			<ref bean="storeBiz"/>
+		</property>
+	</bean>
+	<!-- personalPage -->
+	<bean id="personalPage" class="flower.com.action.ToPersonalPageAction"></bean>
+	<!-- changePassword -->
+	<bean id="changePassword" class="flower.com.action.ChangePasswordAction">
+		<property name="userBiz">
+			<ref bean="userBiz"/>
+		</property>
+	</bean>
+	<!-- flowerNextPaging -->
+	<bean id="flowerNextPaging" class="flower.com.action.FlowerNextPageAction">
+		<property name="flowerBiz">
+			<ref bean="flowerBiz"/>
+		</property>
+	</bean>
+	<!-- flowerPrevPaging -->
+	<bean id="flowerPrevPaging" class="flower.com.action.FlowerPrevPageAction"> 
+		<property name="flowerBiz">
+			<ref bean="flowerBiz"/>
+		</property>
+	</bean>
+	<!-- changeUserInfo -->
+	<bean id="changeUserInfo" class="flower.com.action.ChangeUserInfoAction">
+		<property name="userBiz">
+			<ref bean="userBiz"/>
+		</property>
+		<property name="storeBiz">
+			<ref bean="storeBiz"/>
+		</property>
+		<property name="flowerBiz">
+			<ref bean="flowerBiz"/>
+		</property>
+		<property name="orderBiz">
+			<ref bean="orderBiz"/>
+		</property>
+	</bean>
+	<!-- addFlower -->
+	<bean id="addFlower" class="flower.com.action.AddFlowerAction">
+		<property name="flowerBiz">
+			<ref bean="flowerBiz"/>
+		</property>
+		<property name="flowerFileBiz">
+			<ref bean="flowerFileBiz"/>
+		</property>
+	</bean>
+	<!-- shopCar -->
+	<bean id="shopCar" class="flower.com.action.ShopCarAction">
+		<property name="shopCarBiz">
+			<ref bean="shopCarBiz"/>
+		</property>
+		<property name="flowerBiz">
+			<ref bean="flowerBiz"/>
+		</property>
+	</bean>
+	<!-- orderManager -->
+	<bean id="orderManager" class="flower.com.action.OrderManagerAction">
+		<property name="orderBiz">
+			<ref bean="orderBiz"/>
+		</property>
+		<property name="userBiz">
+			<ref bean="userBiz"/>
+		</property>
+		<property name="flowerBiz">
+			<ref bean="flowerBiz"/>
+		</property>
+	</bean>
+	<!-- orderFlowerMainInfo -->
+	<bean id="orderFlowerMainInfo" class="flower.com.action.OrderFlowerMainInfoAction">
+		<property name="orderBiz">
+			<ref bean="orderBiz"/>
+		</property>
+		<property name="flowerBiz">
+			<ref bean="flowerBiz"/>
+		</property>
+		<property name="flowerFileBiz">
+			<ref bean="flowerFileBiz"/>
+		</property>
+	</bean>
+	<!-- myStore -->
+	<bean id="myStore" class="flower.com.action.MyStoreAction">
+		<property name="flowerBiz">
+			<ref bean="flowerBiz"/>
+		</property>
+	</bean>
+	<!-- toUpdataFlower -->
+	<bean id="toUpdataFlower" class="flower.com.action.ToUpdataFlowerInfo">
+		<property name="flowerBiz">
+			<ref bean="flowerBiz"/>
+		</property>
+	</bean>
+	<!-- updataFlowerInfo -->
+	<bean id="updataFlowerInfo" class="flower.com.action.UpdataFlowerInfoAction">
+		<property name="flowerBiz">
+			<ref bean="flowerBiz"/>
+		</property>
+		<property name="flowerFileBiz">
+			<ref bean="flowerFileBiz"/>
+		</property>
+	</bean>
+	<!-- updataStoreInfo -->
+	<bean id="updataStoreInfo" class="flower.com.action.UpdataStoreInfoAction">
+		<property name="storeBiz">
+			<ref bean="storeBiz"/>
+		</property>
+	</bean>
+	<!-- changeSimpleUserInfo -->
+	<bean id="changeSimpleUserInfo" class="flower.com.action.ChangeSimpleUserInfoAction">
+		<property name="flowerBiz">
+			<ref bean="flowerBiz"/>
+		</property>
+		<property name="userBiz">
+			<ref bean="userBiz"/>
+		</property>
+	</bean>
+	<!-- selectOrderType -->
+	<bean id="selectOrderType" class="flower.com.action.SelectOrderTypeAction">
+		<property name="userBiz">
+			<ref bean="userBiz"/>
+		</property>
+		<property name="orderBiz">
+			<ref bean="orderBiz"/>
+		</property>
+		<property name="flowerBiz">
+			<ref bean="flowerBiz"/>
+		</property>
+	</bean>
+	<!-- deleteOrder -->
+	<bean id="deleteOrder" class="flower.com.action.DeleteOrderAction">
+		<property name="orderBiz">
+			<ref bean="orderBiz"/>
+		</property>
+	</bean>
+	<!-- orderForSale -->
+	<bean id="orderForSale" class="flower.com.action.OrderForSaleAction">
+		<property name="orderBiz">
+			<ref bean="orderBiz"/>
+		</property>
+		<property name="storeBiz">
+			<ref bean="storeBiz"/>
+		</property>
+	</bean>
+	<!-- toShoppingCar -->
+	<bean id="toShoppingCar" class="flower.com.action.ToShoppingCarAction">
+		<property name="flowerBiz">
+			<ref bean="flowerBiz"/>
+		</property>
+		<property name="shopCarBiz">
+			<ref bean="shopCarBiz"/>
+		</property>
+	</bean>
+	<!-- deleteSimpleShopCar -->
+	<bean id="deleteSimpleShopCar" class="flower.com.action.DeleteSimpleShopCar">
+		<property name="shopCarBiz">
+			<ref bean="shopCarBiz"/>
+		</property>
+	</bean>
+	<!-- shopCarDeleteSelect -->
+	<bean id="shopCarDeleteSelect" class="flower.com.action.ShopCarDeleteSelectAction">
+		<property name="shopCarBiz">
+			<ref bean="shopCarBiz"/>
+		</property>
+	</bean>
+	<!-- shopCarForPrice -->
+	<bean id="shopCarForPrice" class="flower.com.action.ShopCarForPriceAction">
+		<property name="storeBiz">
+			<ref bean="storeBiz"/>
+		</property>
+		<property name="shopCarBiz">
+			<ref bean="shopCarBiz"/>
+		</property>
+		<property name="orderBiz">
+			<ref bean="orderBiz"/>
+		</property>
+		<property name="flowerBiz">
+			<ref bean="flowerBiz"/>
+		</property>
+	</bean>
+	<!-- myAddress -->
+	<bean id="myAddress" class="flower.com.action.MyAddressAction">
+		<property name="addressBiz">
+			<ref bean="addressBiz"/>
+		</property>
+	</bean>
+	<!-- deleteAddress -->
+	<bean id="deleteAddress" class="flower.com.action.DeleteAddressAction">
+		<property name="addressBiz">
+			<ref bean="addressBiz"/>
+		</property>
+	</bean>
+	<!-- setAsDefault -->
+	<bean id="setAsDefault" class="flower.com.action.SetAsDefaultAddressAction">
+		<property name="addressBiz">
+			<ref bean="addressBiz"/>
+		</property>
+	</bean>
+	<!-- addAddress -->
+	<bean id="addAddress" class="flower.com.action.AddAddressAction">
+		<property name="addressBiz">
+			<ref bean="addressBiz"/>
+		</property>
+	</bean>
+	<!-- updataAddress -->
+	<bean id="updataAddress" class="flower.com.action.UpdataAddressAction">
+		<property name="addressBiz">
+			<ref bean="addressBiz"/>
+		</property>
+	</bean>
+	<!-- findStoreIsExist -->
+	<bean id="findStoreIsExist" class="flower.com.action.FindStoreIsExistAction">
+		<property name="storeBiz">
+			<ref  bean="storeBiz"/>
+		</property>
+	</bean>
+	<!-- userToOrderManager -->
+	<bean id="userToOrderManager" class="flower.com.action.UserToOrderManagerAction">
+		<property name="addressBiz">
+			<ref bean="addressBiz"/>
+		</property>
+		<property name="orderBiz">
+			<ref bean="orderBiz"/>
+		</property>
+		<property name="flowerBiz">
+			<ref bean="flowerBiz"/>
+		</property>
+	</bean>
+	<!-- userDeleteOrder -->
+	<bean id="userDeleteOrder" class="flower.com.action.UserDeleteOrderAction">
+		<property name="orderBiz">
+			<ref bean="orderBiz"/>
+		</property>
+	</bean>
+	<!-- userSelectType -->
+	<bean id="userSelectType" class="flower.com.action.SelectUserOrderTypeAction">
+		<property name="flowerBiz">
+			<ref bean="flowerBiz"/>
+		</property>
+		<property name="orderBiz">
+			<ref bean="orderBiz"/>
+		</property>
+		<property name="addressBiz">
+			<ref bean="addressBiz"/>
+		</property>
+	</bean>
+	<!-- checkUsername -->
+	<bean id="checkUsername" class="flower.com.action.CheckUsernameAction">
+		<property name="userBiz">
+			<ref bean="userBiz"/>
+		</property>
+	</bean>
+	<!-- checkEmail -->
+	<bean id="checkEmail"  class="flower.com.action.CheckEmailIsExistAction">
+		<property name="userBiz">
+			<ref bean="userBiz"/>
+		</property>
+	</bean>
+	<!-- getDefaultAddress -->
+	<bean id="getDefaultAddress" class="flower.com.action.GetDefaultAddressAvtion">
+		<property name="addressBiz">
+			<ref bean="addressBiz"/>
+		</property>
+	</bean>
+	<!-- applayStore -->
+	<bean id="applayStore" class="flower.com.action.UserApplayStoreAction">
+		<property name="storeBiz">
+			<ref bean="storeBiz"/>
+		</property>
+		<property name="userBiz">
+			<ref bean="userBiz"/>
+		</property>
+	</bean>
+	<!-- getStoreAndFlowerName -->
+	<bean id="getStoreAndFlowerName" class="flower.com.action.GetStoreAndFlowerNameAction">
+		<property name="flowerBiz">
+			<ref bean="flowerBiz"/>
+		</property>
+	</bean>
+<!-- 配置连接池 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<!-- 对连接池进行配置 -->
+		<property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/flowersale?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false"></property>
+		<property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+		<property name="user" value="root"></property>
+		<property name="password" value="System123456"></property>
+		<!-- 连接池 -->
+		<property name="maxPoolSize" value="40"></property>
+		<property name="minPoolSize" value="1"></property>
+		<property name="initialPoolSize" value="1"></property>
+		<property name="maxIdleTime" value="20"></property>
+	</bean>
+	
+	<!-- 配置sessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation"
+			value="classpath:hibernate.cfg.xml">
+		</property>
+	</bean>
+	<!-- 配置模板 -->
+	<bean id="hibernateTemplete" class="org.springframework.orm.hibernate4.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- 配置事务 -->
+	<bean id="txManeger" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- 增强事务 -->
+	<tx:advice id="txAdvice" transaction-manager="txManeger">
+		<tx:attributes>
+		<!-- 增删改需要开启事务 -->
+			<tx:method name="save*"></tx:method>
+			<tx:method name="register*"></tx:method>
+			<tx:method name="delete*"></tx:method>
+			<tx:method name="updata*"></tx:method>
+			<tx:method name="*" propagation="REQUIRED"></tx:method>
+			<!-- 查找不需要开启事务 -->
+			<tx:method name="find*" read-only="true"></tx:method>
+			<tx:method name="is*" read-only="true"></tx:method>
+			<tx:method name="get*" read-only="true"></tx:method>
+			<tx:method name="select*" read-only="true"></tx:method>
+			
+		</tx:attributes>
+	</tx:advice>
+	<!-- 配置切面 -->
+	<aop:config>
+ 		<aop:pointcut expression="execution(* flower.com.biz.*.*(..))" id="SpringPointCut"/>
+ 		<aop:advisor advice-ref="txAdvice" pointcut-ref="SpringPointCut"/>
+ 	</aop:config>
+ <!-- aop环绕 -->
+ 	<!-- 切面 -->
+ 	<bean id="myAspect" class="flower.com.aop.Myaspect"></bean>
+ 	
+ 	<!-- aop编程 -->
+ 	<aop:config>
+ 			<!-- 配置切入面 -->
+ 		<aop:aspect ref="myAspect">
+ 			<!-- 配置切入点 -->
+ 		<aop:pointcut expression="execution(* flower.com.biz.*.*(..))" id="myPointCut"/>
+ 				<!-- 前置通知 -->
+ 				<!-- 关联通知(advice)与切入点  ， 即织入 -->
+ 				<aop:before method="myBefore" pointcut-ref="myPointCut"/>
+ 				<!-- 后置通知 -->
+ 				<aop:after-returning method="myAfterReturning" pointcut-ref="myPointCut" />
+ 				<!-- 环绕通知 -->
+ 				<aop:around method="myAround" pointcut-ref="myPointCut"/>
+ 				<aop:after method="myAfter" pointcut-ref="myPointCut"/>
+ 		</aop:aspect>
+ 	
+ 	</aop:config>
+ 	
+	</beans>
